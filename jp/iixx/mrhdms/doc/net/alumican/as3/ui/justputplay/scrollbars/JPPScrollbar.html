@@ -1,0 +1,469 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><!-- saved from url=(0014)about:internet --><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" href="../../../../../../style.css" type="text/css" media="screen"><link rel="stylesheet" href="../../../../../../print.css" type="text/css" media="print"><link rel="stylesheet" href="../../../../../../override.css" type="text/css"><meta name="keywords" content="JPPScrollbar,net.alumican.as3.ui.justputplay.scrollbars.JPPScrollbar,VERSION,arrowScrollAmount,autoScrollAmount,autoScrollDirection,base,baseEnabled,buttonEnabled,contentSize,continuousArrowScrollAmount,continuousArrowScrollInterval,down,downEnabled,isAutoScrolling,isBasePressed,isDownPressed,isOverFlow,isOvershooting,isReady,isScrolling,isSliderPressed,isUnderFlow,isUpPressed,lowerBound,maskSize,minSliderHeight,mouseWheelArea,overshootEasing,overshootPixels,slider,sliderEnabled,sliderHeight,smoothScrollEasing,stage,targetScroll,up,upEnabled,upperBound,useArrowScrollUsingRatio,useAutoScrollCancelable,useAutoScrollUsingRatio,useContinuousArrowScroll,useFlexibleSlider,useIgnoreSliderHeight,useMouseWheel,useOvershoot,useOvershootDeformationSlider,usePixelFittingContent,usePixelFittingSlider,useSWFWheel,useSmoothScroll,destroy,resizeSlider,scrollByAbsolutePixel,scrollByAbsoluteRatio,scrollByRelativePixel,scrollByRelativeRatio,scrollDown,scrollUp,setup,startAutoScroll,stopAutoScroll"><title>net.alumican.as3.ui.justputplay.scrollbars.JPPScrollbar</title></head><body><script language="javascript" type="text/javascript" src="../../../../../../asdoc.js"></script><script language="javascript" type="text/javascript" src="../../../../../../help.js"></script><script language="javascript" type="text/javascript" src="../../../../../../cookies.js"></script><script language="javascript" type="text/javascript"><!--
+				asdocTitle = 'JPPScrollbar - API Documentation';
+				var baseRef = '../../../../../../';
+				window.onload = configPage;
+			--></script>
+<script type="text/javascript">
+			scrollToNameAnchor();
+		</script><table class="titleTable" cellpadding="0" cellspacing="0" id="titleTable" style="display:none"><tr><td class="titleTableTitle" align="left">package of jp.iixx.mrhdms - API Reference</td><td class="titleTableTopNav" align="right"><a href="../../../../../../package-summary.html" onclick="loadClassListFrame('../../../../../../all-classes.html')">All Packages</a>&nbsp;|&nbsp;<a href="../../../../../../class-summary.html" onclick="loadClassListFrame('../../../../../../all-classes.html')">All Classes</a>&nbsp;|&nbsp;<a href="../../../../../../all-index-A.html" onclick="loadClassListFrame('../../../../../../index-list.html')">Index</a>&nbsp;|&nbsp;<a id="framesLink1" href="../../../../../../index.html?net/alumican/as3/ui/justputplay/scrollbars/JPPScrollbar.html&amp;net/alumican/as3/ui/justputplay/scrollbars/class-list.html">Frames</a><a id="noFramesLink1" style="display:none" href="" onclick="parent.location=document.location"> No Frames </a></td><td class="titleTableLogo" align="right" rowspan="3"><img src="../../../../../../images/logo.jpg" class="logoImage" alt=" Adobe Logo " title=" Adobe Logo "></td></tr><tr class="titleTableRow2"><td class="titleTableSubTitle" id="subTitle" align="left">JPPScrollbar</td><td class="titleTableSubNav" id="subNav" align="right"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a>&nbsp;| <a href="#eventSummary">Events</a>&nbsp;| <a href="#constantSummary">Constants</a></td></tr><tr class="titleTableRow3"><td colspan="3">&nbsp;</td></tr></table><script language="javascript" type="text/javascript" xml:space="preserve">
+				<!--
+				
+					if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("JPPScrollbar"); titleBar_setSubNav(true,true,false,false,false,false,true,false,true,false,false	,false,false,false,false,false);}	
+				-->
+			</script><div xmlns:fn="http://www.w3.org/2005/xpath-functions" class="MainContent"><table class="classHeaderTable" cellpadding="0" cellspacing="0"><tr><td class="classHeaderTableLabel">Package</td><td><a href="package-detail.html" onclick="javascript:loadClassListFrame('class-list.html')">net.alumican.as3.ui.justputplay.scrollbars</a></td></tr><tr><td class="classHeaderTableLabel">Class</td><td class="classSignature">public  class  JPPScrollbar</td></tr><tr><td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">JPPScrollbar  <img src="../../../../../../images/inherit-arrow.gif" title="Inheritance" alt="Inheritance" class="inheritArrow"> flash.events.EventDispatcher</td></tr></table><p></p><p></p><p></p>
+	 JPPScrollbar.as
+	 
+	 <p>ActionScript3.0で簡単に設置できるスクロールバーのコアクラスです. </p>
+	 
+	 09.05.18         overShootを切った状態でアローボタンを押し続けた場合にずっとisScrollingプロパティがtrueになる問題を修正
+	 09.05.18         スクロールの開始時，終了時にイベントを発行するように修正
+	 09.05.26         baseのスケールが1以外の時にbaseクリックでのスクロール位置が狂う問題を修正
+	 09.07.28         スクロール進捗時のイベントを追加
+	 09.07.28         バージョン情報を追加
+	 09.07.28 1.02    overshootPixelsの値が正しく反映されていなかった問題を解消
+	 10.05.10 1.03    パッケージを変更
+	                  継承元をSpriteからEventDispatcherへ変更
+	                  stageへの参照をコンストラクタもしくはプロパティで渡すように変更
+	 10.07.04 1.04    MagicMouseの慣性スクロール中にdelta=0のMouseEvent.MOUSE_WHEELイベントが発生する問題に対処
+	                  SWFWheelを最新版(1.5 pre)に更新
+	 10.08.02 1.05pre 変数isReadyのgetterを追加
+	                  destroyメソッドを追加
+	                  sliderを無効化するときにstopDragするように修正
+	 10.09.17 1.06pre マウスホイール検出エリア(mouseWheelArea)のgetter/setterを追加
+	                  destroyメソッドを最適化
+	                  SWFWheelの使用/不使用を設定できるように変更
+	 10.09.17 1.06    SWFWheelを最新版(1.5 RC2)に更新
+	 
+	 <p></p><br/><hr></div><a name="propertySummary"></a><div class="summarySection"><div class="summaryTableTitle">Public Properties</div><table cellspacing="0" cellpadding="3" class="summaryTable " id="summaryTableProperty"><tr><th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined By</th></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#arrowScrollAmount" class="signatureLink">arrowScrollAmount</a> : Number<div class="summaryTableDescription">
+		 
+		 アローボタンを1回クリックしたときのスクロール量を設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#autoScrollAmount" class="signatureLink">autoScrollAmount</a> : Number<div class="summaryTableDescription">
+		 
+		 オートスクロールの毎フレームのスクロール量を設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#autoScrollDirection" class="signatureLink">autoScrollDirection</a> : Boolean<div class="summaryTableDescription">[read-only] 
+		 
+		 実行中のオートスクロールの方向を取得します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#base" class="signatureLink">base</a> : Sprite<div class="summaryTableDescription">
+		 
+		 スクロールエリアとしてバインドするインスタンスを設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#baseEnabled" class="signatureLink">baseEnabled</a> : Boolean<div class="summaryTableDescription">[write-only] 
+		 
+		 スクロールエリアの有効/無効を切り替えます.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#buttonEnabled" class="signatureLink">buttonEnabled</a> : Boolean<div class="summaryTableDescription">[write-only] 
+		 
+		 アローボタン, スライダー, ベースボタンの有効/無効を一括して切り替えます.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#contentSize" class="signatureLink">contentSize</a> : Number<div class="summaryTableDescription">
+		 
+		 スクロール対象コンテンツの総計サイズを設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#continuousArrowScrollAmount" class="signatureLink">continuousArrowScrollAmount</a> : Number<div class="summaryTableDescription">
+		 
+		 アローボタンを押し続けた場合に発生する連続スクロールを使用する場合, 毎フレームのスクロール量を設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#continuousArrowScrollInterval" class="signatureLink">continuousArrowScrollInterval</a> : uint<div class="summaryTableDescription">
+		 
+		 アローボタンを押し続けた場合に発生する連続スクロールを使用する場合, 連続スクロールが始まるまでの時間(ミリ秒)を設定します．
+		 
+		 </div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#down" class="signatureLink">down</a> : Sprite<div class="summaryTableDescription">
+		 
+		 下向きアローボタンとしてバインドするインスタンスを設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#downEnabled" class="signatureLink">downEnabled</a> : Boolean<div class="summaryTableDescription">[write-only] 
+		 
+		 下方向アローボタンの有効/無効を切り替えます.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#isAutoScrolling" class="signatureLink">isAutoScrolling</a> : Boolean<div class="summaryTableDescription">[read-only] 
+		 
+		 現在オートスクロールを実行中である場合はtrueを返します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#isBasePressed" class="signatureLink">isBasePressed</a> : Boolean<div class="summaryTableDescription">[read-only] 
+		 
+		 スクロールエリアが現在押下されているかどうかを取得します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#isDownPressed" class="signatureLink">isDownPressed</a> : Boolean<div class="summaryTableDescription">[read-only] 
+		 
+		 下方向アローボタンが現在押下されているかどうかを取得します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#isOverFlow" class="signatureLink">isOverFlow</a> : Boolean<div class="summaryTableDescription">[read-only] 
+		 
+		 contentSizeがmaskSizeよりも大きい場合にtrueを返します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#isOvershooting" class="signatureLink">isOvershooting</a> : Boolean<div class="summaryTableDescription">[read-only] 
+		 
+		 現在オーバーシュートをしている場合はtrueを返します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#isReady" class="signatureLink">isReady</a> : Boolean<div class="summaryTableDescription">[read-only] 
+		 
+		 setupが完了している場合はtrueとなります.
+		 falseの場合は全ての動作を受け付けません.
+		 </div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#isScrolling" class="signatureLink">isScrolling</a> : Boolean<div class="summaryTableDescription">[read-only] 
+		 
+		 減速スクロールを使用する場合, 現在スクロールが進行中であるかどうかを取得します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#isSliderPressed" class="signatureLink">isSliderPressed</a> : Boolean<div class="summaryTableDescription">[read-only] 
+		 
+		 スライダーが現在押下されているかどうかを取得します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#isUnderFlow" class="signatureLink">isUnderFlow</a> : Boolean<div class="summaryTableDescription">[read-only] 
+		 
+		 contentSizeがmaskSize以下の場合にtrueを返します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#isUpPressed" class="signatureLink">isUpPressed</a> : Boolean<div class="summaryTableDescription">[read-only] 
+		 
+		 上方向アローボタンが現在押下されているかどうかを取得します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#lowerBound" class="signatureLink">lowerBound</a> : Number<div class="summaryTableDescription">
+		 
+		 スライダーが下限に達したときの変化対象プロパティの値を設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#maskSize" class="signatureLink">maskSize</a> : Number<div class="summaryTableDescription">
+		 
+		 スクロール対象コンテンツの表示部分のサイズを設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#minSliderHeight" class="signatureLink">minSliderHeight</a> : Number<div class="summaryTableDescription">
+		 
+		 コンテンツ量に応じて伸縮するスライダーを使用する場合, スライダーの最小サイズをピクセル値で設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#mouseWheelArea" class="signatureLink">mouseWheelArea</a> : InteractiveObject<div class="summaryTableDescription">
+		 
+		 マウスホイールの検出エリアを設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#overshootEasing" class="signatureLink">overshootEasing</a> : Number<div class="summaryTableDescription">
+		 
+		 オーバーシュートを使用する場合, オーバーシュートから本来のスクロール座標へ戻る際の緩やかさを設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#overshootPixels" class="signatureLink">overshootPixels</a> : Number<div class="summaryTableDescription">
+		 
+		 オーバーシュートを使用する場合, オーバーシュートの最大行き過ぎ量をピクセル数で設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#slider" class="signatureLink">slider</a> : Sprite<div class="summaryTableDescription">
+		 
+		 スライダとしてバインドするインスタンスを設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#sliderEnabled" class="signatureLink">sliderEnabled</a> : Boolean<div class="summaryTableDescription">[write-only] 
+		 
+		 スライダーの有効/無効を切り替えます.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#sliderHeight" class="signatureLink">sliderHeight</a> : Number<div class="summaryTableDescription">[read-only] 
+		 
+		 useOvershootDeformationSlider=true時のオーバーシュート演出によって変形していないときのスライダーの高さを取得します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#smoothScrollEasing" class="signatureLink">smoothScrollEasing</a> : Number<div class="summaryTableDescription">
+		 
+		 減速スクロールを使用する場合の, 減速の緩やかさを設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#stage" class="signatureLink">stage</a> : Stage<div class="summaryTableDescription">
+		 
+		 stageへの参照を設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#targetScroll" class="signatureLink">targetScroll</a> : Number<div class="summaryTableDescription">[read-only] 
+		 
+		 減速スクロールを使用する場合, スクロール完了時に対象プロパティが到達する目標値を表します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#up" class="signatureLink">up</a> : Sprite<div class="summaryTableDescription">
+		 
+		 上向きアローボタンとしてバインドするインスタンスを設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#upEnabled" class="signatureLink">upEnabled</a> : Boolean<div class="summaryTableDescription">[write-only] 
+		 
+		 上方向アローボタンの有効/無効を切り替えます.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#upperBound" class="signatureLink">upperBound</a> : Number<div class="summaryTableDescription">
+		 
+		 スライダーが上限に達したときの変化対象プロパティの値を設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#useArrowScrollUsingRatio" class="signatureLink">useArrowScrollUsingRatio</a> : Boolean<div class="summaryTableDescription">
+		 
+		 continuousArrowScrollAmountおよびarrowScrollAmountに使用するスクロール単位を切り替えます.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#useAutoScrollCancelable" class="signatureLink">useAutoScrollCancelable</a> : Boolean<div class="summaryTableDescription">
+		 
+		 オートスクロールの強制力を切り替えます.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#useAutoScrollUsingRatio" class="signatureLink">useAutoScrollUsingRatio</a> : Boolean<div class="summaryTableDescription">
+		 
+		 オートスクロールに使用するスクロール単位を切り替えます.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#useContinuousArrowScroll" class="signatureLink">useContinuousArrowScroll</a> : Boolean<div class="summaryTableDescription">
+		 
+		 アローボタンを押し続けた場合に, 連続スクロールを発生させるかどうかを切り替えます.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#useFlexibleSlider" class="signatureLink">useFlexibleSlider</a> : Boolean<div class="summaryTableDescription">
+		 
+		 コンテンツ量に応じて伸縮するスライダーを使用するかどうかを設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#useIgnoreSliderHeight" class="signatureLink">useIgnoreSliderHeight</a> : Boolean<div class="summaryTableDescription">
+		 
+		 スライダーの高さを常に0として扱うかどうかを設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#useMouseWheel" class="signatureLink">useMouseWheel</a> : Boolean<div class="summaryTableDescription">
+		 
+		 マウスホイールの使用/不使用を切り替えます.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#useOvershoot" class="signatureLink">useOvershoot</a> : Boolean<div class="summaryTableDescription">
+		 
+		 オーバーシュート(iPhoneのように, 端まで行くとちょっと行き過ぎて戻る演出)を加えるかどうかを切り替えます.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#useOvershootDeformationSlider" class="signatureLink">useOvershootDeformationSlider</a> : Boolean<div class="summaryTableDescription">
+		 
+		 オーバーシュートを使用する場合, オーバーシュート時にスクロールバーが縮む演出を加えるかどうかを切り替えます.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#usePixelFittingContent" class="signatureLink">usePixelFittingContent</a> : Boolean<div class="summaryTableDescription">
+		 
+		 スクロール完了時に対象プロパティを整数値に吸着させるかどうかを設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#usePixelFittingSlider" class="signatureLink">usePixelFittingSlider</a> : Boolean<div class="summaryTableDescription">
+		 
+		 スクロール完了時にスライダーをピクセルに吸着させるかどうかを設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#useSmoothScroll" class="signatureLink">useSmoothScroll</a> : Boolean<div class="summaryTableDescription">
+		 
+		 減速スクロールを使用するかどうかを設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#useSWFWheel" class="signatureLink">useSWFWheel</a> : Boolean<div class="summaryTableDescription">
+		 
+		 マウスホイールの検出にSWFWheelを使用するかどうかを設定します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr></table></div><a name="methodSummary"></a><div class="summarySection"><div class="summaryTableTitle">Public Methods </div><table cellspacing="0" cellpadding="3" class="summaryTable " id="summaryTableMethod"><tr><th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined By</th></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#JPPScrollbar()" class="signatureLink">JPPScrollbar</a>(stage:Stage = null, useSWFWheel:Boolean = true)</div><div class="summaryTableDescription">
+		 
+		 コンストラクタです.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#destroy()" class="signatureLink">destroy</a>():void</div><div class="summaryTableDescription">
+		 
+		 破棄関数.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#resizeSlider()" class="signatureLink">resizeSlider</a>():void</div><div class="summaryTableDescription">
+		 
+		 現在の対象コンテンツ総計サイズ, 対象コンテンツ表示領域サイズ, スライダのベースエリアのサイズに合わせて, スライダーをリサイズする関数です.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#scrollByAbsolutePixel()" class="signatureLink">scrollByAbsolutePixel</a>(pixel:Number):void</div><div class="summaryTableDescription">
+		 
+		 スクロール位置を指定し, スクロールを実行する関数です.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#scrollByAbsoluteRatio()" class="signatureLink">scrollByAbsoluteRatio</a>(ratio:Number):void</div><div class="summaryTableDescription">
+		 
+		 スクロール位置を指定し, スクロールを実行する関数です.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#scrollByRelativePixel()" class="signatureLink">scrollByRelativePixel</a>(pixel:Number, fromTargetPosition:Boolean = true):void</div><div class="summaryTableDescription">
+		 
+		 現在のプロパティ値からの相対的なスクロール量を, ピクセル数として指定してスクロールを実行する関数です.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#scrollByRelativeRatio()" class="signatureLink">scrollByRelativeRatio</a>(ratio:Number, fromTargetPosition:Boolean = true):void</div><div class="summaryTableDescription">
+		 
+		 現在のプロパティ値からの相対的なスクロール量を, 割合として指定してスクロールを実行する関数です.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#scrollDown()" class="signatureLink">scrollDown</a>():void</div><div class="summaryTableDescription">
+		 
+		 arrowScrollAmountプロパティに設定された量だけコンテンツをスクロールさせる関数です.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#scrollUp()" class="signatureLink">scrollUp</a>():void</div><div class="summaryTableDescription">
+		 
+		 arrowScrollAmountプロパティに設定された量だけコンテンツをスクロールさせる関数です.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#setup()" class="signatureLink">setup</a>(content:*, key:String, contentSize:Number, maskSize:Number, upperBound:Number, lowerBound:Number):void</div><div class="summaryTableDescription">
+		 
+		 初期化関数.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#startAutoScroll()" class="signatureLink">startAutoScroll</a>(isDown:Boolean = true):void</div><div class="summaryTableDescription">
+		 
+		 オートスクロールを開始します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#stopAutoScroll()" class="signatureLink">stopAutoScroll</a>():void</div><div class="summaryTableDescription">
+		 
+		 オートスクロールを停止します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr></table></div><a name="eventSummary"></a><div class="summarySection"><div class="summaryTableTitle">Events</div><table cellspacing="0" cellpadding="3" class="summaryTable " id="summaryTableEvent"><tr><th>&nbsp;</th><th colspan="2">Event</th><th> Summary </th><th class="summaryTableOwnerCol">Defined By</th></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#event:onScrollComplete" class="signatureLink">onScrollComplete</a></div></td><td class="summaryTableDescription summaryTableCol">
+		 スクロール完了時に発行されるイベントです．
+		 </td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#event:onScrollProgress" class="signatureLink">onScrollProgress</a></div></td><td class="summaryTableDescription summaryTableCol">
+		 スクロール進捗時に発行されるイベントです．
+		 </td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#event:onScrollStart" class="signatureLink">onScrollStart</a></div></td><td class="summaryTableDescription summaryTableCol">
+		 スクロール開始時に発行されるイベントです．
+		 </td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr></table></div><a name="constantSummary"></a><div class="summarySection"><div class="summaryTableTitle">Public Constants</div><table cellspacing="0" cellpadding="3" class="summaryTable " id="summaryTableConstant"><tr><th>&nbsp;</th><th colspan="2">Constant</th><th class="summaryTableOwnerCol">Defined By</th></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#VERSION" class="signatureLink">VERSION</a> : String = 1.06<div class="summaryTableDescription">
+		 
+		 バージョン情報を取得します.</div></td><td class="summaryTableOwnerCol">JPPScrollbar</td></tr></table></div><script language="javascript" type="text/javascript"><!--
+										showHideInherited();
+										--></script><div class="MainContent"><div class="detailSectionHeader">Property Detail</div><a name="propertyDetail"></a><a name="arrowScrollAmount"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">arrowScrollAmount</td><td class="detailHeaderType">property</td></tr></table><div class="detailBody"><code>arrowScrollAmount:Number</code><p></p><p></p><p>
+		 
+		 <p>アローボタンを1回クリックしたときのスクロール量を設定します. </p>
+		 <p>scrollUp(), scrollDown()メソッドを呼び出した際のスクロール量もこの値に従います. </p>
+		 
+		 </p><p> The default value is <code>200</code>.</p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get arrowScrollAmount():Number</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set arrowScrollAmount(value:Number):void</code><br/></div><a name="propertyDetail"></a><a name="autoScrollAmount"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">autoScrollAmount</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>autoScrollAmount:Number</code><p></p><p></p><p>
+		 
+		 <p>オートスクロールの毎フレームのスクロール量を設定します. </p>
+		 
+		 </p><p> The default value is <code>10</code>.</p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get autoScrollAmount():Number</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set autoScrollAmount(value:Number):void</code><br/></div><a name="propertyDetail"></a><a name="autoScrollDirection"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">autoScrollDirection</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>autoScrollDirection:Boolean</code>&nbsp;&nbsp;[read-only] <p></p><p></p><p>
+		 
+		 <p>実行中のオートスクロールの方向を取得します. </p>
+		 <p>trueの場合は下方向, falseの場合は上方向へスクロールしています. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get autoScrollDirection():Boolean</code><br/></div><a name="propertyDetail"></a><a name="base"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">base</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>base:Sprite</code><p></p><p></p><p>
+		 
+		 <p>スクロールエリアとしてバインドするインスタンスを設定します. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get base():Sprite</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set base(value:Sprite):void</code><br/></div><a name="propertyDetail"></a><a name="baseEnabled"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">baseEnabled</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>baseEnabled:Boolean</code>&nbsp;&nbsp;[write-only] <p></p><p></p><p>
+		 
+		 <p>スクロールエリアの有効/無効を切り替えます. </p>
+		 <p>ボタンを有効化させる場合はtrueを設定します. </p>
+		 <p>mouseChildrenプロパティは変更されません. </p>
+		 <p>このプロパティは書き込み専用です. </p>
+		 <p>setup時にtrueが設定されます. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set baseEnabled(value:Boolean):void</code><br/></div><a name="propertyDetail"></a><a name="buttonEnabled"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">buttonEnabled</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>buttonEnabled:Boolean</code>&nbsp;&nbsp;[write-only] <p></p><p></p><p>
+		 
+		 <p>アローボタン, スライダー, ベースボタンの有効/無効を一括して切り替えます. </p>
+		 <p>ボタンを有効化させる場合はtrueを設定します. </p>
+		 <p>mouseChildrenプロパティは変更されません. </p>
+		 <p>このプロパティは書き込み専用です. </p>
+		 <p>初期設定時にtrueが設定されます. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set buttonEnabled(value:Boolean):void</code><br/></div><a name="propertyDetail"></a><a name="contentSize"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">contentSize</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>contentSize:Number</code><p></p><p></p><p>
+		 
+		 <p>スクロール対象コンテンツの総計サイズを設定します. </p>
+		 <p>このプロパティは伸縮スライドバーを使用する場合のスライドバーのサイズ計算に用いられます. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get contentSize():Number</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set contentSize(value:Number):void</code><br/></div><a name="propertyDetail"></a><a name="continuousArrowScrollAmount"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">continuousArrowScrollAmount</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>continuousArrowScrollAmount:Number</code><p></p><p></p><p>
+		 
+		 <p>アローボタンを押し続けた場合に発生する連続スクロールを使用する場合, 毎フレームのスクロール量を設定します. </p>
+		 
+		 </p><p> The default value is <code>10</code>.</p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get continuousArrowScrollAmount():Number</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set continuousArrowScrollAmount(value:Number):void</code><br/></div><a name="propertyDetail"></a><a name="continuousArrowScrollInterval"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">continuousArrowScrollInterval</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>continuousArrowScrollInterval:uint</code><p></p><p></p><p>
+		 
+		 <p>アローボタンを押し続けた場合に発生する連続スクロールを使用する場合, 連続スクロールが始まるまでの時間(ミリ秒)を設定します．</p>
+		 
+		 </p><p> The default value is <code>300</code>.</p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get continuousArrowScrollInterval():uint</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set continuousArrowScrollInterval(value:uint):void</code><br/></div><a name="propertyDetail"></a><a name="down"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">down</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>down:Sprite</code><p></p><p></p><p>
+		 
+		 <p>下向きアローボタンとしてバインドするインスタンスを設定します. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get down():Sprite</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set down(value:Sprite):void</code><br/></div><a name="propertyDetail"></a><a name="downEnabled"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">downEnabled</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>downEnabled:Boolean</code>&nbsp;&nbsp;[write-only] <p></p><p></p><p>
+		 
+		 <p>下方向アローボタンの有効/無効を切り替えます. </p>
+		 <p>ボタンを有効化させる場合はtrueを設定します. </p>
+		 <p>mouseChildrenプロパティは変更されません. </p>
+		 <p>このプロパティは書き込み専用です. </p>
+		 <p>setup時にtrueが設定されます. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set downEnabled(value:Boolean):void</code><br/></div><a name="propertyDetail"></a><a name="isAutoScrolling"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">isAutoScrolling</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>isAutoScrolling:Boolean</code>&nbsp;&nbsp;[read-only] <p></p><p></p><p>
+		 
+		 <p>現在オートスクロールを実行中である場合はtrueを返します. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get isAutoScrolling():Boolean</code><br/></div><a name="propertyDetail"></a><a name="isBasePressed"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">isBasePressed</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>isBasePressed:Boolean</code>&nbsp;&nbsp;[read-only] <p></p><p></p><p>
+		 
+		 <p>スクロールエリアが現在押下されているかどうかを取得します. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get isBasePressed():Boolean</code><br/></div><a name="propertyDetail"></a><a name="isDownPressed"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">isDownPressed</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>isDownPressed:Boolean</code>&nbsp;&nbsp;[read-only] <p></p><p></p><p>
+		 
+		 <p>下方向アローボタンが現在押下されているかどうかを取得します. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get isDownPressed():Boolean</code><br/></div><a name="propertyDetail"></a><a name="isOverFlow"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">isOverFlow</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>isOverFlow:Boolean</code>&nbsp;&nbsp;[read-only] <p></p><p></p><p>
+		 
+		 <p>contentSizeがmaskSizeよりも大きい場合にtrueを返します. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get isOverFlow():Boolean</code><br/></div><a name="propertyDetail"></a><a name="isOvershooting"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">isOvershooting</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>isOvershooting:Boolean</code>&nbsp;&nbsp;[read-only] <p></p><p></p><p>
+		 
+		 <p>現在オーバーシュートをしている場合はtrueを返します. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get isOvershooting():Boolean</code><br/></div><a name="propertyDetail"></a><a name="isReady"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">isReady</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>isReady:Boolean</code>&nbsp;&nbsp;[read-only] <p></p><p></p><p>
+		 
+		 <p>setupが完了している場合はtrueとなります.</p>
+		 <p>falseの場合は全ての動作を受け付けません.</p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get isReady():Boolean</code><br/></div><a name="propertyDetail"></a><a name="isScrolling"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">isScrolling</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>isScrolling:Boolean</code>&nbsp;&nbsp;[read-only] <p></p><p></p><p>
+		 
+		 <p>減速スクロールを使用する場合, 現在スクロールが進行中であるかどうかを取得します. </p>
+		 <p>スクロールが進行中の場合isScrollingプロパティはtrueを返します.</p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get isScrolling():Boolean</code><br/></div><a name="propertyDetail"></a><a name="isSliderPressed"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">isSliderPressed</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>isSliderPressed:Boolean</code>&nbsp;&nbsp;[read-only] <p></p><p></p><p>
+		 
+		 <p>スライダーが現在押下されているかどうかを取得します. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get isSliderPressed():Boolean</code><br/></div><a name="propertyDetail"></a><a name="isUnderFlow"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">isUnderFlow</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>isUnderFlow:Boolean</code>&nbsp;&nbsp;[read-only] <p></p><p></p><p>
+		 
+		 <p>contentSizeがmaskSize以下の場合にtrueを返します. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get isUnderFlow():Boolean</code><br/></div><a name="propertyDetail"></a><a name="isUpPressed"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">isUpPressed</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>isUpPressed:Boolean</code>&nbsp;&nbsp;[read-only] <p></p><p></p><p>
+		 
+		 <p>上方向アローボタンが現在押下されているかどうかを取得します. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get isUpPressed():Boolean</code><br/></div><a name="propertyDetail"></a><a name="lowerBound"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">lowerBound</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>lowerBound:Number</code><p></p><p></p><p>
+		 
+		 <p>スライダーが下限に達したときの変化対象プロパティの値を設定します. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get lowerBound():Number</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set lowerBound(value:Number):void</code><br/></div><a name="propertyDetail"></a><a name="maskSize"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">maskSize</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>maskSize:Number</code><p></p><p></p><p>
+		 
+		 <p>スクロール対象コンテンツの表示部分のサイズを設定します. </p>
+		 <p>このプロパティは伸縮スライドバーを使用する場合のスライドバーのサイズ計算に用いられます. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get maskSize():Number</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set maskSize(value:Number):void</code><br/></div><a name="propertyDetail"></a><a name="minSliderHeight"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">minSliderHeight</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>minSliderHeight:Number</code><p></p><p></p><p>
+		 
+		 <p>コンテンツ量に応じて伸縮するスライダーを使用する場合, スライダーの最小サイズをピクセル値で設定します. </p>
+		 
+		 </p><p> The default value is <code>10</code>.</p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get minSliderHeight():Number</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set minSliderHeight(value:Number):void</code><br/></div><a name="propertyDetail"></a><a name="mouseWheelArea"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">mouseWheelArea</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>mouseWheelArea:InteractiveObject</code><p></p><p></p><p>
+		 
+		 <p>マウスホイールの検出エリアを設定します. </p>
+		 <p>特に指定しない場合, stageが設定されます. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get mouseWheelArea():InteractiveObject</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set mouseWheelArea(value:InteractiveObject):void</code><br/></div><a name="propertyDetail"></a><a name="overshootEasing"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">overshootEasing</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>overshootEasing:Number</code><p></p><p></p><p>
+		 
+		 <p>オーバーシュートを使用する場合, オーバーシュートから本来のスクロール座標へ戻る際の緩やかさを設定します. </p>
+		 <p>1以上の数値を設定し, 数値が大きくなるほど緩やかに戻るようになります.</p>
+		 
+		 </p><p> The default value is <code>6</code>.</p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get overshootEasing():Number</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set overshootEasing(value:Number):void</code><br/></div><a name="propertyDetail"></a><a name="overshootPixels"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">overshootPixels</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>overshootPixels:Number</code><p></p><p></p><p>
+		 
+		 <p>オーバーシュートを使用する場合, オーバーシュートの最大行き過ぎ量をピクセル数で設定します. </p>
+		 
+		 </p><p> The default value is <code>50</code>.</p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get overshootPixels():Number</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set overshootPixels(value:Number):void</code><br/></div><a name="propertyDetail"></a><a name="slider"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">slider</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>slider:Sprite</code><p></p><p></p><p>
+		 
+		 <p>スライダとしてバインドするインスタンスを設定します. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get slider():Sprite</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set slider(value:Sprite):void</code><br/></div><a name="propertyDetail"></a><a name="sliderEnabled"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">sliderEnabled</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>sliderEnabled:Boolean</code>&nbsp;&nbsp;[write-only] <p></p><p></p><p>
+		 
+		 <p>スライダーの有効/無効を切り替えます. </p>
+		 <p>ボタンを有効化させる場合はtrueを設定します. </p>
+		 <p>mouseChildrenプロパティは変更されません. </p>
+		 <p>このプロパティは書き込み専用です. </p>
+		 <p>setup時にtrueが設定されます. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set sliderEnabled(value:Boolean):void</code><br/></div><a name="propertyDetail"></a><a name="sliderHeight"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">sliderHeight</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>sliderHeight:Number</code>&nbsp;&nbsp;[read-only] <p></p><p></p><p>
+		 
+		 <p>useOvershootDeformationSlider=true時のオーバーシュート演出によって変形していないときのスライダーの高さを取得します. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get sliderHeight():Number</code><br/></div><a name="propertyDetail"></a><a name="smoothScrollEasing"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">smoothScrollEasing</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>smoothScrollEasing:Number</code><p></p><p></p><p>
+		 
+		 <p>減速スクロールを使用する場合の, 減速の緩やかさを設定します. </p>
+		 <p>1以上の数値を設定し, 数値が大きくなるほど緩やかに戻るようになります.</p>
+		 
+		 </p><p> The default value is <code>6</code>.</p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get smoothScrollEasing():Number</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set smoothScrollEasing(value:Number):void</code><br/></div><a name="propertyDetail"></a><a name="stage"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">stage</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>stage:Stage</code><p></p><p></p><p>
+		 
+		 <p>stageへの参照を設定します. </p>
+		 <p>JPPScrollbarの動作には, setup関数もしくはstageセッターによってstageへの参照を渡す必要があります. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get stage():Stage</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set stage(value:Stage):void</code><br/></div><a name="propertyDetail"></a><a name="targetScroll"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">targetScroll</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>targetScroll:Number</code>&nbsp;&nbsp;[read-only] <p></p><p></p><p>
+		 
+		 <p>減速スクロールを使用する場合, スクロール完了時に対象プロパティが到達する目標値を表します. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get targetScroll():Number</code><br/></div><a name="propertyDetail"></a><a name="up"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">up</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>up:Sprite</code><p></p><p></p><p>
+		 
+		 <p>上向きアローボタンとしてバインドするインスタンスを設定します. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get up():Sprite</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set up(value:Sprite):void</code><br/></div><a name="propertyDetail"></a><a name="upEnabled"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">upEnabled</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>upEnabled:Boolean</code>&nbsp;&nbsp;[write-only] <p></p><p></p><p>
+		 
+		 <p>上方向アローボタンの有効/無効を切り替えます. </p>
+		 <p>ボタンを有効化させる場合はtrueを設定します. </p>
+		 <p>mouseChildrenプロパティは変更されません. </p>
+		 <p>このプロパティは書き込み専用です. </p>
+		 <p>setup時にtrueが設定されます. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set upEnabled(value:Boolean):void</code><br/></div><a name="propertyDetail"></a><a name="upperBound"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">upperBound</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>upperBound:Number</code><p></p><p></p><p>
+		 
+		 <p>スライダーが上限に達したときの変化対象プロパティの値を設定します. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get upperBound():Number</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set upperBound(value:Number):void</code><br/></div><a name="propertyDetail"></a><a name="useArrowScrollUsingRatio"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">useArrowScrollUsingRatio</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>useArrowScrollUsingRatio:Boolean</code><p></p><p></p><p>
+		 
+		 <p>continuousArrowScrollAmountおよびarrowScrollAmountに使用するスクロール単位を切り替えます. </p>
+		 <p>trueの場合はスクロール量をコンテンツ全体に対する割合で設定します(0より大きく1以下の数値). </p>
+		 <p>falseの場合はスクロール量をピクセル数で設定します(0以上の数値). </p>
+		 
+		 </p><p> The default value is <code>false</code>.</p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get useArrowScrollUsingRatio():Boolean</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set useArrowScrollUsingRatio(value:Boolean):void</code><br/></div><a name="propertyDetail"></a><a name="useAutoScrollCancelable"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">useAutoScrollCancelable</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>useAutoScrollCancelable:Boolean</code><p></p><p></p><p>
+		 
+		 <p>オートスクロールの強制力を切り替えます. </p>
+		 <p>trueの場合は, 何らかのユーザーアクションによるスクロールが発生した時点でオートスクロールを終了します. </p>
+		 <p>falseの場合は, ユーザーアクションによるスクロールが優先されますが, ユーザーアクションが終了するとオートスクロールは再開します. </p>
+		 
+		 </p><p> The default value is <code>true</code>.</p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get useAutoScrollCancelable():Boolean</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set useAutoScrollCancelable(value:Boolean):void</code><br/></div><a name="propertyDetail"></a><a name="useAutoScrollUsingRatio"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">useAutoScrollUsingRatio</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>useAutoScrollUsingRatio:Boolean</code><p></p><p></p><p>
+		 
+		 <p>オートスクロールに使用するスクロール単位を切り替えます. </p>
+		 <p>trueの場合はスクロール量をコンテンツ全体に対する割合で設定します(0より大きく1以下の数値). </p>
+		 <p>falseの場合はスクロール量をピクセル数で設定します(0以上の数値). </p>
+		 
+		 </p><p> The default value is <code>false</code>.</p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get useAutoScrollUsingRatio():Boolean</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set useAutoScrollUsingRatio(value:Boolean):void</code><br/></div><a name="propertyDetail"></a><a name="useContinuousArrowScroll"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">useContinuousArrowScroll</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>useContinuousArrowScroll:Boolean</code><p></p><p></p><p>
+		 
+		 <p>アローボタンを押し続けた場合に, 連続スクロールを発生させるかどうかを切り替えます. </p>
+		 <p>連続スクロールを使用する場合はtrueを設定します. </p>
+		 
+		 </p><p> The default value is <code>true</code>.</p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get useContinuousArrowScroll():Boolean</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set useContinuousArrowScroll(value:Boolean):void</code><br/></div><a name="propertyDetail"></a><a name="useFlexibleSlider"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">useFlexibleSlider</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>useFlexibleSlider:Boolean</code><p></p><p></p><p>
+		 
+		 <p>コンテンツ量に応じて伸縮するスライダーを使用するかどうかを設定します. </p>
+		 <p>使用する場合にはtrueを設定します. </p>
+		 
+		 </p><p> The default value is <code>true</code>.</p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get useFlexibleSlider():Boolean</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set useFlexibleSlider(value:Boolean):void</code><br/></div><a name="propertyDetail"></a><a name="useIgnoreSliderHeight"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">useIgnoreSliderHeight</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>useIgnoreSliderHeight:Boolean</code><p></p><p></p><p>
+		 
+		 <p>スライダーの高さを常に0として扱うかどうかを設定します. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get useIgnoreSliderHeight():Boolean</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set useIgnoreSliderHeight(value:Boolean):void</code><br/></div><a name="propertyDetail"></a><a name="useMouseWheel"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">useMouseWheel</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>useMouseWheel:Boolean</code><p></p><p></p><p>
+		 
+		 <p>マウスホイールの使用/不使用を切り替えます. </p>
+		 <p>マウスホイールを使用する場合はtrueを設定します. </p>
+		 
+		 </p><p> The default value is <code>true</code>.</p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get useMouseWheel():Boolean</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set useMouseWheel(value:Boolean):void</code><br/></div><a name="propertyDetail"></a><a name="useOvershoot"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">useOvershoot</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>useOvershoot:Boolean</code><p></p><p></p><p>
+		 
+		 <p>オーバーシュート(iPhoneのように, 端まで行くとちょっと行き過ぎて戻る演出)を加えるかどうかを切り替えます. </p>
+		 <p>オーバーシュートを使用する場合はtrueを設定します. </p>
+		 
+		 </p><p> The default value is <code>false</code>.</p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get useOvershoot():Boolean</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set useOvershoot(value:Boolean):void</code><br/></div><a name="propertyDetail"></a><a name="useOvershootDeformationSlider"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">useOvershootDeformationSlider</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>useOvershootDeformationSlider:Boolean</code><p></p><p></p><p>
+		 
+		 <p>オーバーシュートを使用する場合, オーバーシュート時にスクロールバーが縮む演出を加えるかどうかを切り替えます. </p>
+		 <p>演出を使用する場合はtrueを設定します. </p>
+		 
+		 </p><p> The default value is <code>true</code>.</p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get useOvershootDeformationSlider():Boolean</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set useOvershootDeformationSlider(value:Boolean):void</code><br/></div><a name="propertyDetail"></a><a name="usePixelFittingContent"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">usePixelFittingContent</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>usePixelFittingContent:Boolean</code><p></p><p></p><p>
+		 
+		 <p>スクロール完了時に対象プロパティを整数値に吸着させるかどうかを設定します. </p>
+		 <p>吸着させる場合にはtrueを設定します. </p>
+		 </p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get usePixelFittingContent():Boolean</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set usePixelFittingContent(value:Boolean):void</code><br/></div><a name="propertyDetail"></a><a name="usePixelFittingSlider"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">usePixelFittingSlider</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>usePixelFittingSlider:Boolean</code><p></p><p></p><p>
+		 
+		 <p>スクロール完了時にスライダーをピクセルに吸着させるかどうかを設定します. </p>
+		 <p>吸着させる場合にはtrueを設定します. </p>
+		 
+		 </p><p> The default value is <code>false</code>.</p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get usePixelFittingSlider():Boolean</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set usePixelFittingSlider(value:Boolean):void</code><br/></div><a name="propertyDetail"></a><a name="useSmoothScroll"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">useSmoothScroll</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>useSmoothScroll:Boolean</code><p></p><p></p><p>
+		 
+		 <p>減速スクロールを使用するかどうかを設定します. </p>
+		 <p>使用する場合にはtrueを設定します. </p>
+		 
+		 </p><p> The default value is <code>true</code>.</p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get useSmoothScroll():Boolean</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set useSmoothScroll(value:Boolean):void</code><br/></div><a name="propertyDetail"></a><a name="useSWFWheel"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">useSWFWheel</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>useSWFWheel:Boolean</code><p></p><p></p><p>
+		 
+		 <p>マウスホイールの検出にSWFWheelを使用するかどうかを設定します. </p>
+		 <p>stageをsetterで設定する場合は, stageを設定する前にこのプロパティを変更する必要があります. </p>
+		 <p>また, stageを設定後はこのプロパティをtrueにすることで自動的にSWFWheelを初期化します. </p>
+		 
+		 </p><p> The default value is <code>true</code>.</p><br/><span class="label"> Implementation </span><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function get useSWFWheel():Boolean</code><br/><code>&nbsp;&nbsp;&nbsp;&nbsp;public function set useSWFWheel(value:Boolean):void</code><br/></div><a name="constructorDetail"></a><div class="detailSectionHeader">Constructor Detail</div><a name="JPPScrollbar()"></a><a name="JPPScrollbar(flash.display.Stage,Boolean)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">JPPScrollbar</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">Constructor</td></tr></table><div class="detailBody"><code>public function JPPScrollbar(stage:Stage = null, useSWFWheel:Boolean = true)</code><p></p><p>
+		 
+		 <p>コンストラクタです. </p>
+		 </p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">stage</span>:Stage</code> (default = <code>null</code>)<code></code> &mdash; <p>stageへの参照です. コンストラクタで渡せない場合にはインスタンス生成後にstageプロパティへ代入する必要があります. </p>
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">useSWFWheel</span>:Boolean</code> (default = <code>true</code>)<code></code> &mdash; <p>マウスホイール検出にSWFWheelを使用するかどうかを設定します. </p>
+		 </td></tr></table></div><a name="methodDetail"></a><div class="detailSectionHeader">Method Detail</div><a name="destroy()"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">destroy</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td></tr></table><div class="detailBody"><code> public function destroy():void</code><p></p><p></p><p>
+		 
+		 <p>破棄関数. </p>
+		 <p>スクロールバーを破棄します. </p>
+		 </p></div><a name="resizeSlider()"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">resizeSlider</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function resizeSlider():void</code><p></p><p></p><p>
+		 
+		 <p>現在の対象コンテンツ総計サイズ, 対象コンテンツ表示領域サイズ, スライダのベースエリアのサイズに合わせて, スライダーをリサイズする関数です. </p>
+		 </p></div><a name="scrollByAbsolutePixel()"></a><a name="scrollByAbsolutePixel(Number)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">scrollByAbsolutePixel</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function scrollByAbsolutePixel(pixel:Number):void</code><p></p><p></p><p>
+		 
+		 <p>スクロール位置を指定し, スクロールを実行する関数です. </p>
+		 <p>値の指定にはピクセルを指定します. </p>
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">pixel</span>:Number</code> &mdash; 	 	<p>スクロール後の位置です. </p>
+		 	<p>upperBoundを指定するとスライダーが一番上へ, lowerBoundを指定するとスライダーが一番下へ移動します. </p>
+		 </td></tr></table></p></div><a name="scrollByAbsoluteRatio()"></a><a name="scrollByAbsoluteRatio(Number)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">scrollByAbsoluteRatio</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function scrollByAbsoluteRatio(ratio:Number):void</code><p></p><p></p><p>
+		 
+		 <p>スクロール位置を指定し, スクロールを実行する関数です. </p>
+		 <p>値の指定には割合を指定します. </p>
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">ratio</span>:Number</code> &mdash; 	 	<p>スクロールさせる割合です. </p>
+		 	<p>0を指定するとスライダーが一番上へ, 1を指定するとスライダーが一番下へ移動します. </p>
+		 </td></tr></table></p></div><a name="scrollByRelativePixel()"></a><a name="scrollByRelativePixel(Number,Boolean)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">scrollByRelativePixel</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function scrollByRelativePixel(pixel:Number, fromTargetPosition:Boolean = true):void</code><p></p><p></p><p>
+		 
+		 <p>現在のプロパティ値からの相対的なスクロール量を, ピクセル数として指定してスクロールを実行する関数です. </p>
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">pixel</span>:Number</code> &mdash; 	 	<p>スクロールさせるピクセル数の相対値です. </p>
+		 	<p>0を指定するとスライダーは動かず, 100を指定するとスライダーが対象コンテンツ100ピクセル分上へ移動します.</p>
+		  <p>また, -100を指定するとスライダーが対象コンテンツ100ピクセル分上へ移動します.</p>
+		 
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">fromTargetPosition</span>:Boolean</code> (default = <code>true</code>)<code></code> &mdash; 	 	<p>減速スクロールの目標値を基準値として割合を指定する場合はtrueを,現在の暫定プロパティ値を基準値とする場合はfalseを指定します. </p>
+		 	</td></tr></table></p></div><a name="scrollByRelativeRatio()"></a><a name="scrollByRelativeRatio(Number,Boolean)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">scrollByRelativeRatio</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function scrollByRelativeRatio(ratio:Number, fromTargetPosition:Boolean = true):void</code><p></p><p></p><p>
+		 
+		 <p>現在のプロパティ値からの相対的なスクロール量を, 割合として指定してスクロールを実行する関数です. </p>
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">ratio</span>:Number</code> &mdash; 	 	<p>スクロールさせる割合の相対値です. </p>
+		 	<p>0を指定するとスライダーは動かず, 0.5を指定するとスライダが基準値から全可動域の半分下へ移動します.</p>
+		  <p>また, -0.5を指定するとスライダが全可動域の半分上へ移動します.</p>
+		 
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">fromTargetPosition</span>:Boolean</code> (default = <code>true</code>)<code></code> &mdash; 	 	<p>減速スクロールの目標値を基準値として割合を指定する場合はtrueを,現在の暫定プロパティ値を基準値とする場合はfalseを指定します. </p>
+		 	</td></tr></table></p></div><a name="scrollDown()"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">scrollDown</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function scrollDown():void</code><p></p><p></p><p>
+		 
+		 <p>arrowScrollAmountプロパティに設定された量だけコンテンツをスクロールさせる関数です. </p>
+		 <p>スライダーは下方向へと移動します. </p>
+		 </p></div><a name="scrollUp()"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">scrollUp</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function scrollUp():void</code><p></p><p></p><p>
+		 
+		 <p>arrowScrollAmountプロパティに設定された量だけコンテンツをスクロールさせる関数です. </p>
+		 <p>スライダーは上方向へと移動します. </p>
+		 </p></div><a name="setup()"></a><a name="setup(any,String,Number,Number,Number,Number)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">setup</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function setup(content:*, key:String, contentSize:Number, maskSize:Number, upperBound:Number, lowerBound:Number):void</code><p></p><p></p><p>
+		 
+		 <p>初期化関数. </p>
+		 <p>スクロールバーのアクティベーションをおこないます. </p>
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">content</span>:*</code> &mdash;     <p>スクロール対象のオブジェクト(コンテンツ)です. </p>
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">key</span>:String</code> &mdash;         <p>スクロールによって実際に変化させたいプロパティ名です. </p>
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">contentSize</span>:Number</code> &mdash; <p>スクロール対象オブジェクトの総計サイズです. </p>
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">maskSize</span>:Number</code> &mdash;    <p>実際に表示されるスクロール対象オブジェクトのサイズです. </p>
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">upperBound</span>:Number</code> &mdash;  <p>スライダーが上限に達したときの変化対象プロパティの値です. </p>
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">lowerBound</span>:Number</code> &mdash;  <p>スライダーが下限に達したときの変化対象プロパティの値です. </p>
+		 </td></tr></table></p></div><a name="startAutoScroll()"></a><a name="startAutoScroll(Boolean)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">startAutoScroll</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function startAutoScroll(isDown:Boolean = true):void</code><p></p><p></p><p>
+		 
+		 <p>オートスクロールを開始します. </p>
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">isDown</span>:Boolean</code> (default = <code>true</code>)<code></code> &mdash; 	 	<p>スクロール方向です.</p>
+		 	<p>trueの場合は下方向へ, falseの場合は上方向へスクロールします. </p>
+		 	</td></tr></table></p></div><a name="stopAutoScroll()"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">stopAutoScroll</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function stopAutoScroll():void</code><p></p><p></p><p>
+		 
+		 <p>オートスクロールを停止します. </p>
+		 </p></div><div class="detailSectionHeader"> Event Detail </div><a name="event:onScrollComplete"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">onScrollComplete</td><td class="detailHeaderType"> Event </td></tr></table><div class="detailBody"><span class="label">Event Object Type: </span><a href="../../../../../../net/alumican/as3/ui/justputplay/events/JPPScrollbarEvent.html"><code>net.alumican.as3.ui.justputplay.events.JPPScrollbarEvent</code></a><br/><span class="label">JPPScrollbarEvent.type property = </span><a href="../../../../../../net/alumican/as3/ui/justputplay/events/JPPScrollbarEvent.html#SCROLL_COMPLETE"><code>net.alumican.as3.ui.justputplay.events.JPPScrollbarEvent.SCROLL_COMPLETE</code></a><br/><p></p><p></p><p>
+	 </p>
+		 <p>スクロール完了時に発行されるイベントです．</p>
+		 </div><a name="event:onScrollProgress"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">onScrollProgress</td><td class="detailHeaderType"> Event </td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><span class="label">Event Object Type: </span><a href="../../../../../../net/alumican/as3/ui/justputplay/events/JPPScrollbarEvent.html"><code>net.alumican.as3.ui.justputplay.events.JPPScrollbarEvent</code></a><br/><span class="label">JPPScrollbarEvent.type property = </span><a href="../../../../../../net/alumican/as3/ui/justputplay/events/JPPScrollbarEvent.html#SCROLL_PROGRESS"><code>net.alumican.as3.ui.justputplay.events.JPPScrollbarEvent.SCROLL_PROGRESS</code></a><br/><p></p><p></p><p>
+	 </p>
+		 <p>スクロール進捗時に発行されるイベントです．</p>
+		 </div><a name="event:onScrollStart"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">onScrollStart</td><td class="detailHeaderType"> Event </td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><span class="label">Event Object Type: </span><a href="../../../../../../net/alumican/as3/ui/justputplay/events/JPPScrollbarEvent.html"><code>net.alumican.as3.ui.justputplay.events.JPPScrollbarEvent</code></a><br/><span class="label">JPPScrollbarEvent.type property = </span><a href="../../../../../../net/alumican/as3/ui/justputplay/events/JPPScrollbarEvent.html#SCROLL_START"><code>net.alumican.as3.ui.justputplay.events.JPPScrollbarEvent.SCROLL_START</code></a><br/><p></p><p></p><p>
+	 </p>
+		 <p>スクロール開始時に発行されるイベントです．</p>
+		 </div><div class="detailSectionHeader">Constant Detail</div><a name="constantDetail"></a><a name="VERSION"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">VERSION</td><td class="detailHeaderType">Constant</td></tr></table><div class="detailBody"><code>public const VERSION:String = 1.06</code><p></p><p></p><p>
+		 
+		 <p>バージョン情報を取得します. </p>
+		 </p></div><br/><br/><hr><br/><p></p><center class="copyright"><footer></footer><br/>Mon Jun 20 2011, 06:19 PM +09:00  </center></div></body></html><!--<br/>Mon Jun 20 2011, 06:19 PM +09:00  -->

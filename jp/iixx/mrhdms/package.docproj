@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<docProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <pageTitle>package of jp.iixx.mrhdms - API Reference</pageTitle>
+  <classPaths>C:\Documents and Settings\HIDEMASA_MORI.HOT-FACTORY\My Documents\My Dropbox\FlashDev\my_classes\AS3\jp\iixx\mrhdms;C:\Documents and Settings\HIDEMASA_MORI.HOT-FACTORY\My Documents\My Dropbox\FlashDev\my_classes\AS3\net\alumican;C:\Documents and Settings\HIDEMASA_MORI.HOT-FACTORY\My Documents\My Dropbox\FlashDev\my_classes\AS3\org\libspark\ui</classPaths>
+  <sourcesList>net.alumican.as3.ui.justputplay.scrollbars.JPPScrollbar net.alumican.as3.ui.justputplay.events.JPPScrollbarEvent org.libspark.ui.SWFWheel</sourcesList>
+  <outputDirectory>C:\Documents and Settings\HIDEMASA_MORI.HOT-FACTORY\My Documents\My Dropbox\FlashDev\my_classes\AS3\jp\iixx\mrhdms\doc</outputDirectory>
+  <activeCompiler>1</activeCompiler>
+  <extraOptions />
+</docProject>
