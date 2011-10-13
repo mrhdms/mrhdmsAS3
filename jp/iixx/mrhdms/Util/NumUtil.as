@@ -21,6 +21,7 @@ package jp.iixx.mrhdms.util
 		
 		/**
 		 * 長辺にあわせて縮小率を返す
+		 * トリミングなしで枠内に収める時とかに
 		 * 
 		 * @param w1 Number 元となるオブジェクトの幅
 		 * @param h1 Number 元となるオブジェクトの高さ
@@ -30,6 +31,20 @@ package jp.iixx.mrhdms.util
 		public static function scaleRatioByLongSide(w1:Number, h1:Number, w2:Number, h2:Number):Number
 		{
 			return w2 / w1 > h2 / h1 ? h2 / h1 : w2 / w1;
+		}
+		
+		/**
+		 * 短辺にあわせて縮小率を返す
+		 * トリミングして枠いっぱいに表示するときとかに
+		 * 
+		 * @param w1 Number 元となるオブジェクトの幅
+		 * @param h1 Number 元となるオブジェクトの高さ
+		 * @param w2 Number 目標の幅
+		 * @param h2 Number 目標の高さ
+		 */
+		public static function scaleRatioByShortSide(w1:Number, h1:Number, w2:Number, h2:Number):Number
+		{
+			return w2 / w1 < h2 / h1 ? h2 / h1 : w2 / w1;
 		}
 	}
 	
