@@ -62,7 +62,13 @@ package jp.iixx.mrhdms.util
 			var diff:Number = endDate.getTime() - startDate.getTime();
 			if (surplus) 
 			{
-				return int(diff / 1000 / 60 / 60 / 24 % 365);
+				startDate.setFullYear(endDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+				if (startDate.getTime() > endDate.getTime()) 
+				{
+					startDate.setFullYear(endDate.getFullYear() - 1, startDate.getMonth(), startDate.getDate());
+				}
+				diff = endDate.getTime() - startDate.getTime();
+				return int(diff / 1000 / 60 / 60 / 24);
 			} else {
 				return int(diff / 1000 / 60 / 60 / 24);
 			}
