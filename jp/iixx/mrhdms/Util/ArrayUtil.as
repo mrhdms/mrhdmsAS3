@@ -46,6 +46,25 @@ package jp.iixx.mrhdms.util
 			
 			return ary2;
 		}
+		
+		/**
+		 * ary1からary2の内容と重複がない部分だけ新たな配列で返します。
+		 * @param	ary1	元となる配列
+		 * @param	ary2	重複チェック用配列
+		 * @return	Array	ary2の内容を取り除いた新たな配列
+		 */
+		public static function diffArray(ary1:Array, ary2:Array):Array
+		{
+			var diffAry:Array = ary1.filter(
+				function(item:*, index:int, ary:Array):Boolean
+				{
+					return ary2.indexOf(item) == -1;
+				}	
+			);
+			
+			return diffAry;
+			
+		}
 	}
 	
 }
