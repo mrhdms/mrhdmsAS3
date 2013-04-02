@@ -20,6 +20,27 @@ package jp.iixx.mrhdms.util
 		}
 		
 		/**
+		 * 数字を指定の桁数にあわせる。足りないときは頭に0を足す。足りてる時はそのまま。
+		 * @param	num		対象となる数値
+		 * @param	digits		桁数
+		 * @return	桁数に合わされた文字列
+		 */
+		public static function formatNumber(num:Number,digits:uint):String
+		{
+			var str:String = num.toString();
+			if (str.length < digits) 
+			{
+				var len:uint = digits - str.length;
+				for (var i:int = 0; i < len; i++) 
+				{
+					str = "0" + str;
+				}
+			}
+			
+			return str;
+		}
+		
+		/**
 		 * 長辺にあわせて縮小率を返す
 		 * トリミングなしで枠内に収める時とかに
 		 * 
